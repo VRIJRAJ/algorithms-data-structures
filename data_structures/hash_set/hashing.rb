@@ -1,4 +1,4 @@
-# Create custom hashing functions
+# Custom hashing functions
 
 class Fixnum
   # Use Ruby's default Fixnum#hash

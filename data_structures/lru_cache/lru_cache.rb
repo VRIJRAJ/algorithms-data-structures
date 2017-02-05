@@ -1,6 +1,7 @@
-require_relative 'p05_hash_map'
-require_relative 'p04_linked_list'
+require_relative '../hash_map/hash_map'
+require_relative '../linked_list/linked_list'
 
+# LRU Cache that creates values for keys by running them through a proc
 class LRUCache
   attr_reader :count
   def initialize(max, prc)
