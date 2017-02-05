@@ -70,6 +70,12 @@ class LinkedList
     link
   end
 
+  def update(key, val)
+    each do |link|
+      link.val = val if link.key == key
+    end
+  end
+
   def remove(key)
     each do |link|
       link.remove if link.key == key
