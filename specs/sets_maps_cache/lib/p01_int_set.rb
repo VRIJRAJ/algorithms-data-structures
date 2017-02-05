@@ -1,3 +1,4 @@
+# Store integers within a predifined maximum
 class MaxIntSet
   def initialize(max)
     @store = Array.new(max, false)
@@ -5,19 +6,23 @@ class MaxIntSet
 
   def insert(num)
     validate!(num)
+    @store[num] = true
   end
 
   def remove(num)
     validate!(num)
+    @store[num] = false
   end
 
   def include?(num)
     validate!(num)
+    @store[num]
   end
 
   private
 
   def is_valid?(num)
+    num.between?(0, @store.length - 1)
   end
 
   def validate!(num)
@@ -26,6 +31,7 @@ class MaxIntSet
 end
 
 
+# Store integers using buckets
 class IntSet
   def initialize(num_buckets = 20)
     @store = Array.new(num_buckets) { Array.new }
@@ -51,6 +57,8 @@ class IntSet
   end
 end
 
+
+# Store integers in a resizing set
 class ResizingIntSet
   attr_reader :count
 
