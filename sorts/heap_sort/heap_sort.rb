@@ -1,4 +1,4 @@
-require_relative "heap"
+require '../../data_structures/heaps/heap'
 
 class Array
   # Time: O(n log n)
