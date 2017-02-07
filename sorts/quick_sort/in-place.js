@@ -1,6 +1,6 @@
-// # Choose pivot randomly to mitigate against pathological datasets
-// # Sort in place for better space complexity
-// # Unstable ordering
+// Choose pivot randomly to mitigate against pathological datasets
+// Sort in place for better space complexity
+// Unstable ordering
 
 function quickSortInPlace(array, start = 0, length = array.length) {
   // Base case: return when section is one or less items
