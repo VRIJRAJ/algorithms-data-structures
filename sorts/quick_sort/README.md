@@ -1,8 +1,8 @@
 # Quick Sort
 
-Selects a pivot, shuffles items to left and right of pivot according to sort, then recursively sorts the left and right sections. Fast for best and average case time complexity, but slow for worst case. Choose pivot randomly to mitigate against pathological datasets.
+Selects a pivot, shuffles items to left and right of pivot according to sort, then recursively sorts the left and right sections.
 
-Can be done in place, but since it's called recursively space complexity is dependent on the number of calls made.
+Fast for best and average case time complexity, but slow for worst case. Choose pivot randomly to mitigate against pathological datasets. Unstable ordering if done in place.
 
 **Best and Average Case**
 * Time: O(n log n)
