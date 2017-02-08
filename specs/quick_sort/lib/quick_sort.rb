@@ -4,6 +4,14 @@ class QuickSort
 
   # Not in-place. Uses O(n) memory.
   def self.sort1(array)
+    return array if array.length < 2
+
+    fulcrum = array.shift
+
+    left, right = [], []
+    array.each { |el| el <= fulcrum ? left << el : right << el }
+
+    sort1(left) + [fulcrum] + sort1(right)
   end
 
   # In-place.
