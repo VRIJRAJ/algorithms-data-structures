@@ -29,3 +29,9 @@ Dynamic arrays don't have to shift all elements if they use a ring buffer. A rin
 \#push: O(1) (amortized)
 \#shift: O(1)
 \#unshift: O(1) (amortized)
+
+## Sorted Array
+
+\#find: O(log n) (using binary search)
+\#insert: O(n)
+\#delete: O(n)
