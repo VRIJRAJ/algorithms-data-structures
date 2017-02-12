@@ -4,9 +4,9 @@
 
 In a binary search tree a node is always bigger than everything to its left, and always smaller than everything to its right (or equal to for left or right depending on how it's set up).
 
-\#find:   O(n)
-\#insert: O(n)
-\#delete: O(n)
+* \#find:   O(n)
+* \#insert: O(n)
+* \#delete: O(n)
 
 ### Find
 
@@ -29,6 +29,6 @@ Can also be done by using the smallest node to the right as the replacement node
 * Difference in depth of left and right branches <= 1
 * Both left and right branches are balanced
 
-\#find:   O(log n)
-\#insert: O(log n)
-\#delete: O(log n)
+* \#find:   O(log n)
+* \#insert: O(log n)
+* \#delete: O(log n)
