@@ -49,7 +49,7 @@ describe BinarySearchTree do
 
       describe 'with many insertions' do
         it 'inserts properly' do
-          [4,2,9,9,10].each do |n|
+          [4, 2, 9, 9, 10].each do |n|
             BinarySearchTree.insert!(node, n)
           end
 
@@ -64,7 +64,7 @@ describe BinarySearchTree do
 
     describe 'min and max' do
       before(:each) do
-        [4,2,9,9,10].each do |n|
+        [4, 2, 9, 9, 10].each do |n|
           BinarySearchTree.insert!(node, n)
         end
       end
@@ -84,7 +84,7 @@ describe BinarySearchTree do
 
     describe '::find!' do
       before(:each) do
-        [4,2,9,9,10].each do |n|
+        [4, 2, 9, 9, 10].each do |n|
           BinarySearchTree.insert!(node, n)
         end
       end
@@ -133,7 +133,7 @@ describe BinarySearchTree do
       end
 
       it 'works when a node with children is passed in ' do
-        [1,2,3,8,9].each { |n| BinarySearchTree.insert!(node, n) }
+        [1, 2, 3, 8, 9].each { |n| BinarySearchTree.insert!(node, n) }
         expect(BinarySearchTree.find!(node, 1)).not_to be_nil
         BinarySearchTree.delete_min!(node)
         expect(BinarySearchTree.find!(node, 1)).to be_nil
@@ -155,18 +155,27 @@ describe BinarySearchTree do
 
       it 'deletes a the correct node from a node with children' do
         BinarySearchTree.insert!(node, 8)
-        returned_node = BinarySearchTree.delete!(node, 8)
+        BinarySearchTree.delete!(node, 8)
         expect(BinarySearchTree.find!(node, 8)).to be_nil
       end
 
       it 'works for a more complicated case' do
-        [1,2,3,8,9].each { |n| BinarySearchTree.insert!(node, n) }
+        [1, 2, 3, 8, 9].each { |n| BinarySearchTree.insert!(node, n) }
         expect(BinarySearchTree.find!(node, 3)).not_to be_nil
-        returned_node = BinarySearchTree.delete!(node, 3)
+        BinarySearchTree.delete!(node, 3)
         expect(BinarySearchTree.find!(node, 3)).to be_nil
         expect(BinarySearchTree.find!(node, 9)).not_to be_nil
-        returned_node = BinarySearchTree.delete!(node, 9)
+        BinarySearchTree.delete!(node, 9)
         expect(BinarySearchTree.find!(node, 9)).to be_nil
+      end
+
+      it 'properly reassigns children' do
+        [4, 3, 5, 8, 9].each { |n| BinarySearchTree.insert!(node, n) }
+        expect(BinarySearchTree.find!(node, 4)).not_to be_nil
+        BinarySearchTree.delete!(node, 4)
+        expect(BinarySearchTree.find!(node, 4)).to be_nil
+        expect(node.left.value).to eq(5)
+        expect(node.left.left.value).to eq(3)
       end
     end
 

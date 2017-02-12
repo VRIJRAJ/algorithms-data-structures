@@ -22,6 +22,8 @@ Search down the tree in the same manner that find does until you find an empty p
 (Maintains O(n**0.5))
 Find the node to delete. If it doesn't have any children just delete it. If it does have children find the largest node to the deleted node's left (the node that will be bigger than everything to the deleted node's left and smaller than everything to the deleted node's right), and place it in the deleted node's position.
 
+Can also be done by using the smallest node to the right as the replacement node.
+
 ## Balanced
 
 * Difference in depth of left and right branches <= 1
