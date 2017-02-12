@@ -28,3 +28,4 @@ In terms of practical performance and frequency of usage the top three sorts are
 * [Hash Map](./data_structures/hash_map)
 * [LRU Cache](./data_structures/lru_cache)
 * [Heap](./data_structures/heaps)
+* [Binary Search Tree](./data_structures/binary_search_tree)
