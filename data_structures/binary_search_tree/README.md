@@ -26,9 +26,7 @@ Can also be done by using the smallest node to the right as the replacement node
 
 ## Balanced
 
-* Difference in depth of left and right branches <= 1
-* Both left and right branches are balanced
-
+Difference in depth of left and right branches <= 1. Both left and right branches must be balanced
 
 * \#find:   O(log n)
 * \#insert: O(log n)
