@@ -1,6 +1,9 @@
 require_relative '../hash_set/hashing'
 require_relative '../linked_list/linked_list'
 
+# Key-value store for quick lookup
+# O(1) getting and setting well-implemented hash table
+
 class HashMap
   include Enumerable
   attr_reader :count
