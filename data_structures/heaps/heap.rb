@@ -1,80 +1,102 @@
-class BinaryMinHeap
-  def initialize(&prc)
-    @store = []
-    @prc = prc
-  end
-
-  def count
-    store.count
-  end
-
-  def extract
-    raise 'heap empty, cannot extract' if count < 1
-    @store[0], @store[-1] = @store[-1], @store[0]
-
-    item = @store.pop
-    BinaryMinHeap.heapify_down(@store, 0, &prc) if count > 1
-
-    item
-  end
-
-  def peek
-    store.first
+class MinHeap
+  def initialize(val = nil)
+    @store = val ? [val] : []
   end
 
   def push(val)
-    @store.push(val)
-    BinaryMinHeap.heapify_up(@store, count - 1, @prc)
+    @store << val
+    heapify_up!
   end
 
-  def self.child_indices(len, parent_index)
-    [2 * parent_index + 1, 2 * parent_index + 2].select { |i| i < len }
+  def peek
+    raise "Heap empty" if count == 0
+    @store.first
   end
 
-  def self.parent_index(child_index)
-    raise 'root has no parent' if child_index == 0
+  def poll
+    raise "Heap empty" if count == 0
+
+    el = @store.first
+    @store[0] = @store.last
+    @store.pop
+    heapify_down!
+
+    el
+  end
+
+  def store
+    @store
+  end
+
+  private
+
+  def heapify_up!
+    index = count - 1
+    while has_parent(index) && parent(index) > @store[index]
+      parent_index = parent_index(index)
+
+      @store[index], @store[parent_index] = @store[parent_index], @store[index]
+      index = parent_index
+    end
+  end
+
+  def heapify_down!
+    index = 0
+    while has_left_child(index)
+      li, ri = left_child_index(index), right_child_index(index)
+      if @store[ri].nil?
+        child_i = li
+      else
+        child_i = @store[li] < @store[ri] ? li : ri
+      end
+
+      if @store[index] < @store[child_i]
+        return :ok
+      else
+        @store[index], @store[child_i] = @store[child_i], @store[index]
+      end
+
+      index = child_i
+    end
+  end
+
+  def count
+    @store.length
+  end
+
+  def left_child(index)
+    @store[left_child_index(index)]
+  end
+
+  def right_child(index)
+    @store[right_child_index(index)]
+  end
+
+  def parent(index)
+    @store[parent_index(index)]
+  end
+
+  def left_child_index(parent_index)
+    parent_index * 2 + 1
+  end
+
+  def right_child_index(parent_index)
+    parent_index * 2 + 2
+  end
+
+  def parent_index(child_index)
     (child_index - 1) / 2
   end
 
-  def self.heapify_down(array, parent_idx, len = array.length, &prc)
-    prc ||= Proc.new { |x, y| x <=> y }
-
-    left_i, right_i = child_indices(len, parent_idx)
-
-    children = []
-    children << array[left_i] unless left_i.nil?
-    children << array[right_i] unless right_i.nil?
-
-    if children.all? { |child| prc.call(array[parent_idx], child) <= 0 }
-      return array
-    end
-
-    swap_i = nil
-    if children.length == 1
-      swap_i = left_i
-    else
-      swap_i = prc.call(children[0], children[1]) == -1 ? left_i : right_i
-    end
-
-    array[parent_idx], array[swap_i] = array[swap_i], array[parent_idx]
-    heapify_down(array, swap_i, len, &prc)
+  def has_left_child(index)
+    left_child_index(index) < count
   end
 
-  def self.heapify_up(array, child_idx, len = array.length, &prc)
-    prc ||= Proc.new { |x, y| x <=> y }
-
-    return array if child_idx == 0
-
-    parent_idx = parent_index(child_idx)
-    if prc.call(array[child_idx], array[parent_idx]) >= 0
-      return array
-    else
-      array[child_idx], array[parent_idx] = array[parent_idx], array[child_idx]
-      heapify_up(array, parent_idx, len, &prc)
-    end
+  def has_right_child(index)
+    right_child_index(index) < count
   end
 
-  protected
-
-  attr_accessor :prc, :store
+  def has_parent(index)
+    parent_index(index) >= 0
+  end
 end
