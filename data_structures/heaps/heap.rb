@@ -1,5 +1,8 @@
-class MinHeap
-  def initialize(val = nil)
+class Heap
+  def initialize(val = nil, &prc)
+    prc ||= Proc.new { |x, y| x <=> y }
+
+    @prc = prc
     @store = val ? [val] : []
   end
 
@@ -32,7 +35,8 @@ class MinHeap
 
   def heapify_up!
     index = count - 1
-    while has_parent(index) && parent(index) > @store[index]
+    # while has_parent(index) && parent(index) > @store[index]
+    while has_parent(index) && @prc.call(parent(index), @store[index]) >= 0
       parent_index = parent_index(index)
 
       @store[index], @store[parent_index] = @store[parent_index], @store[index]
@@ -47,10 +51,12 @@ class MinHeap
       if @store[ri].nil?
         child_i = li
       else
-        child_i = @store[li] < @store[ri] ? li : ri
+        # child_i = @store[li] < @store[ri] ? li : ri
+        child_i = @prc.call(@store[li], @store[ri]) < 0 ? li : ri
       end
 
-      if @store[index] < @store[child_i]
+      # if @store[index] < @store[child_i]
+      if @prc.call(@store[index], @store[child_i]) < 0
         return :ok
       else
         @store[index], @store[child_i] = @store[child_i], @store[index]
