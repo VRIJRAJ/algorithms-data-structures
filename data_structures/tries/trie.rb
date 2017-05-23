@@ -12,25 +12,26 @@ class Trie
       next_node = node.children.find { |n| n.val == char }
 
       unless next_node
-        next_node = Node.new(char)
+        next_node = Node.new(char, node)
         node.add_child(next_node)
       end
 
       node = next_node
     end
 
-    node.add_child(Node.new(:*))
+    star_node = Node.new(:*, node)
+    node.add_child(star_node)
+    star_node.inc_parents
   end
 
-  def count_completions_for_partial(par)
-    node = @root
+  def count_completions_for_partial(partial)
+    node = @root.find(partial)
 
-    par.each_char do |char|
-      node = node.children.find { |n| n.val == char }
-      return 0 if node.nil?
+    if node
+      node.completions_count
+    else
+      0
     end
-
-    node.count_complete_paths
   end
 
   def display
